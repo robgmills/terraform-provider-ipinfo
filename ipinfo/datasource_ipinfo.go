@@ -41,7 +41,7 @@ func datasourceIPInfoRead(ctx context.Context, d *schema.ResourceData, m interfa
 		return diag.FromErr(err)
 	}
 
-	if r != nil && r.IP.String() == ipstring {
+	if r != nil {
 		d.SetId(r.IP.String())
 
 		if err := d.Set("ip", r.IP.String()); err != nil {

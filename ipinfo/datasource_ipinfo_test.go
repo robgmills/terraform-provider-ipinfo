@@ -16,7 +16,7 @@ func TestAccIPInfoDataSource_basic(t *testing.T) {
 		ProviderFactories: testAccProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccIPInfoDataSource(dsIP),
+				Config: testAccIPInfoDataSourceWithIP(dsIP),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(datasourceName, "ip", dsIP),
 					resource.TestCheckResourceAttr(datasourceName, "hostname", "dns.google"),
@@ -26,10 +26,51 @@ func TestAccIPInfoDataSource_basic(t *testing.T) {
 	})
 }
 
-func testAccIPInfoDataSource(ip string) string {
+func TestAccIPInfoDataSourceEmptyIP_basic(t *testing.T) {
+	datasourceName := "data.ipinfo.info"
+	dsIP := ""
+
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { testAccPreCheck(t) },
+		ProviderFactories: testAccProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccIPInfoDataSourceWithIP(dsIP),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet(datasourceName, "ip"),
+					resource.TestCheckResourceAttrSet(datasourceName, "hostname"),
+				),
+			},
+		},
+	})
+}
+
+func TestAccIPInfoDataSourceNoIP_basic(t *testing.T) {
+	datasourceName := "data.ipinfo.info"
+
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { testAccPreCheck(t) },
+		ProviderFactories: testAccProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccIPInfoDataSourceNoIP(),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet(datasourceName, "ip"),
+					resource.TestCheckResourceAttrSet(datasourceName, "hostname"),
+				),
+			},
+		},
+	})
+}
+
+func testAccIPInfoDataSourceWithIP(ip string) string {
 	return fmt.Sprintf(`
 		data "ipinfo" "info" {
   			ip = "%s"
 		}
 		`, ip)
+}
+
+func testAccIPInfoDataSourceNoIP() string {
+	return fmt.Sprintf(`data "ipinfo" "info" {}`)
 }
