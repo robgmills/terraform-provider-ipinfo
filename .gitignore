@@ -1,0 +1,51 @@
+# Local .terraform directories
+**/.terraform/*
+.env
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Crash log files
+crash.log
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+vendor/
+packrd/
+
+# Artefacts directories
+plugins/
+
+# Github Pages
+_site/
+Gemfile
+Gemfile.lock
+
+# Temp files from build steps
+tmp/
+temp/
+dist/
+
+# Mac meta files
+.DS_Store
