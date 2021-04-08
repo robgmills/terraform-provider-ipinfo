@@ -5,7 +5,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/ipinfo/go/ipinfo"
+	"github.com/ipinfo/go/v2/ipinfo"
 )
 
 // Provider returns a terraform.ResourceProvider.
@@ -35,9 +35,7 @@ func Provider() *schema.Provider {
 		}
 
 		// Get access token by signing up a free account at https://ipinfo.io/signup
-		authTransport := ipinfo.AuthTransport{Token: d.Get("api_token").(string)}
-		httpClient := authTransport.Client()
-		client := ipinfo.NewClient(httpClient)
+		client := ipinfo.NewClient(nil, nil, d.Get("api_token").(string))
 
 		return client, nil
 	}

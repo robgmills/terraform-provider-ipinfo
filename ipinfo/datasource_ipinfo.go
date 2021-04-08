@@ -6,7 +6,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/ipinfo/go/ipinfo"
+	"github.com/ipinfo/go/v2/ipinfo"
 )
 
 var ipInfoSchema = map[string]*schema.Schema{
@@ -18,7 +18,7 @@ var ipInfoSchema = map[string]*schema.Schema{
 	"ip": {
 		Type:        schema.TypeString,
 		Description: "IP address",
-		Required:    true,
+		Optional:    true,
 	},
 }
 
@@ -33,9 +33,10 @@ func datasourceIPInfoRead(ctx context.Context, d *schema.ResourceData, m interfa
 	client := m.(*ipinfo.Client)
 
 	ipstring := d.Get("ip").(string)
-	ip := net.ParseIP(ipstring)
 
-	r, err := client.GetInfo(ip)
+	ip := net.ParseIP(ipstring)
+	r, err := client.GetIPInfo(ip)
+
 	if err != nil {
 		return diag.FromErr(err)
 	}
