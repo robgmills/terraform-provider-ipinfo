@@ -1,12 +1,10 @@
-ipinfo Terraform Provider
-==================
+# ipinfo Terraform Provider
 
 Makes the ipinfo.io IP address API available to Terraform as a datasource.
 
 _Why?_ I used this to create my own dynamic DNS solution with the Namechaep Terraform provider as a learning experiment.
 
-Prerequisites
-------------------
+## Prerequisites
 
 You need to sign up for an account and receive [an access token on ipinfo.io](https://ipinfo.io/account/token).
 
@@ -17,13 +15,11 @@ Use that token to either fill in the provider block or set the environment varia
 * Terraform v0.12.X or greater
 * Go 1.16.X or greater
 
-Usage
----------------------
+## Usage
 
 Then inside a Terraform file within your project (Ex. `providers.tf`):
 
-Using the provider
-----------------------
+## Using the provider
 
 Make sure your API details are correct in the provider block.
 
@@ -64,8 +60,7 @@ output "googlednshostname" {
 
 Setup terraform and view the plan output.
 
-Developing the Provider
----------------------------
+## Developing the Provider
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (version 1.15+ is recommended). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
 
